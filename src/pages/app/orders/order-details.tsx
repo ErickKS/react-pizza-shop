@@ -1,10 +1,13 @@
-import { getOrdersDetails } from "@/api/get-order-detaisl";
-import { OrderStatus } from "@/components/order-status";
-import { DialogContent, DialogHeader, DialogDescription, DialogTitle } from "@/components/ui/dialog";
-import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useQuery } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
+
+import { getOrdersDetails } from "@/api/get-order-details";
+
+import { OrderStatus } from "@/components/order-status";
+import { DialogContent, DialogHeader, DialogDescription, DialogTitle } from "@/components/ui/dialog";
+import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { OrdersDetailsSkeleton } from "./order-details-skeleton";
 
 interface OrderDetailsProps {
   orderId: string;
@@ -25,7 +28,7 @@ export function OrderDetails({ open, orderId }: OrderDetailsProps) {
         <DialogDescription>Detalhes do pedido</DialogDescription>
       </DialogHeader>
 
-      {order && (
+      {order ? (
         <div className="space-y-6">
           <Table>
             <TableBody>
@@ -95,6 +98,8 @@ export function OrderDetails({ open, orderId }: OrderDetailsProps) {
             </TableFooter>
           </Table>
         </div>
+      ) : (
+        <OrdersDetailsSkeleton />
       )}
     </DialogContent>
   );

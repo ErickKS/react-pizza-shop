@@ -1,19 +1,20 @@
-import { ArrowRight, Search, X } from "lucide-react";
+import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { ArrowRight, Search, X } from "lucide-react";
+
+import { cancelOrder } from "@/api/cancel-order";
+import { GetOrdersResponse } from "@/api/get-orders";
+import { approveOrder } from "@/api/approve-order";
+import { deliverOrder } from "@/api/deliver-order";
+import { dispatchOrder } from "@/api/dispatch-order";
 
 import { Button } from "@/components/ui/button";
 import { TableRow, TableCell } from "@/components/ui/table";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { OrderStatus } from "@/components/order-status";
 import { OrderDetails } from "./order-details";
-import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { cancelOrder } from "@/api/cancel-order";
-import { GetOrdersResponse } from "@/api/get-orders";
-import { approveOrder } from "@/api/approve-order";
-import { deliverOrder } from "@/api/deliver-order";
-import { dispatchOrder } from "@/api/dispatch-order";
 
 interface OrderTableRowProps {
   order: {
@@ -126,7 +127,7 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
         )}
 
         {order.status === "delivering" && (
-          <Button variant={"outline"} size={"xs"} onClick={() => deliverOrder({ orderId: order.orderId })} disabled={isDeliveringOrder}>
+          <Button variant={"outline"} size={"xs"} onClick={() => deliverOrderFn({ orderId: order.orderId })} disabled={isDeliveringOrder}>
             <ArrowRight className="size-3 mr-2" />
             Entregue
           </Button>
