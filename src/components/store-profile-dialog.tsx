@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import { GetManagedRestaurantResponse, getManagedRestaurant } from "@/api/get-managed-restaurant";
-import { updateProfile } from "@/api/updata-profile";
+import { updateProfile } from "@/api/update-profile";
 
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
@@ -23,7 +23,7 @@ type StoreProfileSchema = z.infer<typeof storeSchema>;
 export function StoreProfileDialog() {
   const queryClient = useQueryClient();
 
-  const { data: managedRestaurant, isLoading: isLoadingManagedRestaurant } = useQuery({
+  const { data: managedRestaurant } = useQuery({
     queryKey: ["managed-restaurant"],
     queryFn: getManagedRestaurant,
     staleTime: Infinity,

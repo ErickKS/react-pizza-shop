@@ -41,8 +41,6 @@ export function SignUp() {
         phone: data.phone,
       });
 
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
       toast.success("Restaurante cadastrado com sucesso.", {
         action: {
           label: "Login",
